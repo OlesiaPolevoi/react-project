@@ -4,47 +4,54 @@ export default function ProfileForm() {
   const [profile, setProfile] = useState({});
 
   const handleChange = ({ target }) => {
-    let { name, value } = target;
-
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      [name]: value,
-    }));
+    const { name, value } = target;
+    setProfile((prev) => {
+      return { ...prev, [name]: value };
+    });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
     alert(JSON.stringify(profile, "", 2));
+
+    setProfile({
+      firstName: "",
+      lastName: "",
+      bday: "",
+      password: "",
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        value={profile.firstName || ""}
-        name="firstName"
-        type="text"
         placeholder="First Name"
+        type="text"
+        name="firstName"
+        value={profile.firstName || ""}
         onChange={handleChange}
-      />
+      ></input>
       <input
-        value={profile.lastName || ""}
+        placeholder="Last Name"
         type="text"
         name="lastName"
-        placeholder="Last Name"
+        value={profile.lastName || ""}
         onChange={handleChange}
-      />
+      ></input>
       <input
-        value={profile.bday || ""}
         type="date"
         name="bday"
+        value={profile.bday || ""}
         onChange={handleChange}
-      />
+      ></input>
       <input
-        value={profile.password || ""}
         type="password"
         name="password"
         placeholder="Password"
+        value={profile.password || ""}
         onChange={handleChange}
-      />
+      ></input>
       <button type="submit">Submit</button>
     </form>
   );
